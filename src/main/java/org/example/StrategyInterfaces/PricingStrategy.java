@@ -1,6 +1,6 @@
 package org.example.StrategyInterfaces;
 
-import org.example.pojo.TripMetaData;
+import org.example.Trip.TripMetaData;
 
 public interface PricingStrategy {
 

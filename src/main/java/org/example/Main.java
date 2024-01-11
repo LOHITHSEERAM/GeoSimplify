@@ -1,9 +1,11 @@
 package org.example;
 
 import org.example.Geohash.Geohash;
+import org.example.Geohash.SpatialKeyAlgo;
 import org.example.StrategyImplementations.LeastTimeBasedMatchingStrategy;
 import org.example.StrategyInterfaces.DriverMatchingStrategy;
-import org.example.pojo.TripMetaData;
+import org.example.util.BBox;
+import org.example.Trip.TripMetaData;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -26,7 +28,9 @@ public class Main {
         t.createMap();
         DriverMatchingStrategy dms = new LeastTimeBasedMatchingStrategy();
         dms.matchDriver(t);
+        Geohash<Long> ska = new SpatialKeyAlgo(32,new BBox(-180,180,-90,90));
 
-        System.out.print(Geohash.encode(t.nodeCoordinates.get(3).latitude,t.nodeCoordinates.get(3).longitude,7));
+        System.out.print(ska.encodeLatLon(77.5950811,
+                12.9063592));
     }
 }

@@ -1,6 +1,7 @@
-package org.example.pojo;
+package org.example.Trip;
 
 import org.example.Location.Location;
+import org.example.pojo.Road;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,11 +13,12 @@ import java.util.*;
 public class TripMetaData {
     public Map<Integer, Location> nodeCoordinates = new HashMap<>();
 
-    public Map<Integer,List<Road>> routes = new HashMap<>();
+    public Map<Integer, List<Road>> routes = new HashMap<>();
 
     public Map<Integer, Character> colors = new HashMap<>();
     public int DriverLoc = 1345;
     public int RiderLoc = 3;
+
     public void loadCoordinates() {
         try {
             Scanner myReader;
@@ -25,7 +27,7 @@ public class TripMetaData {
             while (my.hasNextLine()) {
                 String data = my.nextLine();
                 String[] d = data.split(" ");
-                nodeCoordinates.put(Integer.valueOf(d[1]), new Location(Double.valueOf(d[1])/Math.pow(10,6), Double.valueOf(d[2])/Math.pow(10,6)));
+                nodeCoordinates.put(Integer.valueOf(d[1]), new Location(Double.valueOf(d[1]) / Math.pow(10, 6), Double.valueOf(d[2]) / Math.pow(10, 6)));
             }
             my.close();
         } catch (FileNotFoundException e) {
@@ -36,12 +38,13 @@ public class TripMetaData {
     }
 
     public void createMap() {
-    int i = 0;
+        int i = 0;
         try {
 
             Scanner myReader;
             File distances = new File("/Users/lohithseeram/Downloads/USA-road-d.NY.gr");
             File time = new File("/Users/lohithseeram/Downloads/USA-road-t.NY.gr");
+
             Scanner d = new Scanner(distances);
             Scanner t = new Scanner(time);
             //System.out.print(i++);
@@ -50,10 +53,10 @@ public class TripMetaData {
                 String tim = t.nextLine();
                 String[] sd = dist.split(" ");
                 String[] st = tim.split(" ");
-                Road r = new Road(Integer.valueOf(sd[2]),Integer.valueOf(sd[3]),Integer.valueOf(st[3]));
-                if(routes.get(Integer.valueOf(sd[1]))==null) {
+                Road r = new Road(Integer.valueOf(sd[2]), Integer.valueOf(sd[3]), Integer.valueOf(st[3]));
+                if (routes.get(Integer.valueOf(sd[1])) == null) {
                     ArrayList<Road> roads = new ArrayList<>();
-                    routes.put(Integer.valueOf(sd[1]),roads);
+                    routes.put(Integer.valueOf(sd[1]), roads);
                 }
                 routes.get(Integer.valueOf(sd[1])).add(r);
             }
@@ -76,7 +79,7 @@ public class TripMetaData {
             while (my.hasNextLine()) {
                 String data = my.nextLine();
                 String[] d = data.split(" ");
-                colors.put(Integer.valueOf(d[0]),d[1].charAt(0));
+                colors.put(Integer.valueOf(d[0]), d[1].charAt(0));
             }
             my.close();
         } catch (FileNotFoundException e) {
@@ -87,10 +90,10 @@ public class TripMetaData {
 
 
     @Deprecated
-    public void  assignColor(Map<Integer,List<Road>> routes) {
+    public void assignColor(Map<Integer, List<Road>> routes) {
 
         File myObj = new File("/Users/lohithseeram/Downloads/USA-road-colors.NY.gr");
-        try{
+        try {
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
@@ -102,13 +105,13 @@ public class TripMetaData {
         }
 
         Random random = new Random();
-        for(Map.Entry<Integer,List<Road>> entries :  routes.entrySet()) {
-            colors.put(entries.getKey(),(char)('a'+random.nextInt(4)));
+        for (Map.Entry<Integer, List<Road>> entries : routes.entrySet()) {
+            colors.put(entries.getKey(), (char) ('a' + random.nextInt(4)));
         }
         try {
             FileWriter myWriter = new FileWriter(myObj);
-            for(Map.Entry<Integer,Character> entries : colors.entrySet()) {
-                myWriter.write(entries.getKey()+ " "+ entries.getValue());
+            for (Map.Entry<Integer, Character> entries : colors.entrySet()) {
+                myWriter.write(entries.getKey() + " " + entries.getValue());
                 myWriter.write("\n");
             }
             myWriter.close();
@@ -118,4 +121,6 @@ public class TripMetaData {
             e.printStackTrace();
         }
     }
+
+
 }
