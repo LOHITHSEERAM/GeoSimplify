@@ -3,10 +3,9 @@ package org.example.StrategyImplementations;
 import org.example.StrategyInterfaces.DriverMatchingStrategy;
 import org.example.pojo.Driver;
 import org.example.pojo.Road;
-import org.example.pojo.TripMetaData;
+import org.example.Trip.TripMetaData;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.PriorityQueue;
 
 public class LeastTimeBasedMatchingStrategy implements DriverMatchingStrategy {

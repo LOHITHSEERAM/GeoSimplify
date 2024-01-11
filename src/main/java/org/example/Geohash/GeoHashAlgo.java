@@ -2,12 +2,12 @@ package org.example.Geohash;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Geohash {
+public class GeoHashAlgo implements Geohash<String>{
 
-
+    static Integer precision = 6;
         private static final String BASE32 = "0123456789bcdefghjkmnpqrstuvwxyz";
 
-        public static String encode(double lat, double lon, Integer precision) {
+        public  String encodeLatLon(double lat, double lon) {
 
             if (Double.isNaN(lat) || Double.isNaN(lon)) {
                 throw new IllegalArgumentException("Invalid geohash");
@@ -15,7 +15,7 @@ public class Geohash {
 
             if (precision == null) {
                 for (int p = 1; p <= 12; p++) {
-                    String hash = encode(lat, lon, p);
+                    String hash = encodeLatLon(lat, lon);
                     Map<String, Double> posn = decode(hash);
                     if (posn.get("lat").equals(lat) && posn.get("lon").equals(lon)) {
                         return hash;
@@ -64,7 +64,7 @@ public class Geohash {
             return geohash.toString();
         }
 
-    public static Map<String, Double> decode(String geohash) {
+    public  Map<String, Double> decode(String geohash) {
         Map<String, Map<String, Double>> bounds = bounds(geohash); // <-- call to bounds method
         // now just determine the centre of the cell...
 
@@ -91,7 +91,7 @@ public class Geohash {
         return result;
     }
 
-    public static Map<String, Map<String, Double>> bounds(String geohash) {
+    public  Map<String, Map<String, Double>> bounds(String geohash) {
         if (geohash.length() == 0) {
             throw new IllegalArgumentException("Invalid geohash");
         }
@@ -145,7 +145,7 @@ public class Geohash {
         return bounds;
     }
 
-    public static String adjacent(String geohash, String direction) {
+    public  String adjacent(String geohash, String direction) {
         geohash = geohash.toLowerCase();
         direction = direction.toLowerCase();
 
@@ -177,7 +177,7 @@ public class Geohash {
         return parent + BASE32.charAt(neighbour.get(direction)[type].indexOf(lastCh));
     }
 
-    public static Map<String, String> neighbours(String geohash) {
+    public  Map<String, String> neighbours(String geohash) {
         geohash = geohash.toLowerCase();
 
         Map<String, String> result = new HashMap<>();
