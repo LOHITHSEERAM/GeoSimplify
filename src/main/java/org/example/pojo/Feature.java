@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.util.Map;
 import java.util.Properties;
 
 @Getter
@@ -48,4 +49,5 @@ public class Feature<T> {
     public void setId(String id) {
         this.id = id;
     }
+
 }

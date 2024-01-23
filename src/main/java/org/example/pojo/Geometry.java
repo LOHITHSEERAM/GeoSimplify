@@ -1,18 +1,24 @@
 package org.example.pojo;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
-public class Geometry{
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Point.class, name = "Point"),
+        @JsonSubTypes.Type(value = Polygon.class, name = "Polygon")
+})
+public abstract class Geometry{
 
-    @JsonProperty("type")
-    public String getType() {
-		 return this.type; }
-    public void setType(String type) {
-		 this.type = type; }
-    String type;
-    public abstract Coordinate getCoordinate();
 
-    public abstract Coordinate[] getCoordinates();
+
 }
