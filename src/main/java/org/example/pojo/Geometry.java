@@ -15,7 +15,9 @@ import java.util.Objects;
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Point.class, name = "Point"),
-        @JsonSubTypes.Type(value = Polygon.class, name = "Polygon")
+        @JsonSubTypes.Type(value = Polygon.class, name = "Polygon"),
+        @JsonSubTypes.Type(value = LineString.class, name = "LineString")
+
 })
 public abstract class Geometry{
 

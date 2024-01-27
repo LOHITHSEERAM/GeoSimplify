@@ -1,11 +1,12 @@
 package org.example;
 
 import org.example.GeoData.GeoDataEateries;
+import org.example.GeoData.GeoDataRoads;
 import org.example.Geohash.Geohash;
 import org.example.Geohash.SpatialKeyAlgo;
 import org.example.StrategyImplementations.LeastTimeBasedMatchingStrategy;
 import org.example.StrategyInterfaces.DriverMatchingStrategy;
-import org.example.util.BBox;
+import org.example.util.Shapes.BBox;
 import org.example.Trip.TripMetaData;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -31,9 +32,11 @@ public class Main {
         dms.matchDriver(t);
         Geohash<Long> ska = new SpatialKeyAlgo(31,new BBox(-180,180,-90,90));
 
-        System.out.print(ska.encodeLatLon(89,179));
+        //System.out.print(ska.encodeLatLon(89,179));
 
-        GeoDataEateries g = new GeoDataEateries();
-        g.loadEateries();
+        GeoDataRoads r = new GeoDataRoads();
+        r.loadEateries();
+        //GeoDataEateries g = new GeoDataEateries();
+       // g.loadEateries();
     }
 }

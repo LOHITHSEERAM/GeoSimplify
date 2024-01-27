@@ -1,6 +1,6 @@
 
 package org.example.Geohash;
-import org.example.util.BBox;
+import org.example.util.Shapes.BBox;
 
 //https://karussell.wordpress.com/2012/05/23/spatial-keys-memory-efficient-geohashes/
 public class SpatialKeyAlgo implements Geohash<Long> {

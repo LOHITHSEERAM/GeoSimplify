@@ -2,8 +2,10 @@ package org.example.GeoData;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.example.Index.QuadTree;
 import org.example.pojo.*;
-import org.example.util.BBox;
+import org.example.util.Shapes.BBox;
+import org.example.util.Shapes.Circle;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +17,10 @@ public class GeoDataEateries {
 
     QuadTree quadTree = new QuadTree(3,new BBox(-180,180,-90,90),6);
     Root root;
+
+
     public void loadEateries() throws IOException {
+
 
         File Eateries = new File("/Users/lohithseeram/Downloads/Banglore_cafe_restaurants.geojson");
         {
@@ -31,28 +36,28 @@ public class GeoDataEateries {
         }
 
         ArrayList<Feature> features = root.getFeatures();
-        for(int i=0;i< features.size();i++) {
-            Attractions eatery = new Attractions();
+        for(int i=0;i<features.size();i++) {
+            GeoType eatery = new Attractions();
             eatery.setId(features.get(i).id);
 
             if (features.get(i).getGeometry() instanceof Point) {
                 Point pointGeometry = (Point) features.get(i).getGeometry();
-                eatery.setLongitude(pointGeometry.getCoordinates().get(0));
-                eatery.setLatitude(pointGeometry.getCoordinates().get(1));
+                eatery.setLongitude(pointGeometry.getCoordinates().get(1));
+                eatery.setLatitude(pointGeometry.getCoordinates().get(0));
             }
             else if(features.get(i).getGeometry() instanceof Polygon){
                 Polygon polygonGeometry = (Polygon) features.get(i).getGeometry();
-                eatery.setLongitude(polygonGeometry.getCoordinates().get(0).get(0).get(0));
-                eatery.setLatitude(polygonGeometry.getCoordinates().get(0).get(0).get(1));
+                eatery.setLongitude(polygonGeometry.getCoordinates().get(0).get(0).get(1));
+                eatery.setLatitude(polygonGeometry.getCoordinates().get(0).get(0).get(0));
             }
-            quadTree.insertAttraction(eatery);
+            quadTree.insert(eatery);
         }
 
-        Attractions eat = new Attractions();
-        eat.setLongitude(77.6021393);
-        eat.setLatitude(12.9752988);
-       System.out.println(quadTree.getNearByAttractions(eat,2).get(2).getId());
-
+        GeoType eat = new Attractions();
+        eat.setLongitude(12.9984461);
+        eat.setLatitude(77.5920015);
+        System.out.println(quadTree.getNearByWithoutRange(eat));
+       System.out.println(quadTree.getNearByWithRange(eat, new Circle(eat.getLatitude(),eat.getLongitude(),300)).size());
 
     }
 }

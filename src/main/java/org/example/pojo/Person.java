@@ -1,6 +1,6 @@
 package org.example.pojo;
 
-public class Attractions implements GeoType{
+public class Person implements GeoType{
 
 
     String id;
