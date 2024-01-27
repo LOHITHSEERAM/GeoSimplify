@@ -40,7 +40,6 @@ public class TripMetaData {
     public void createMap() {
         int i = 0;
         try {
-
             Scanner myReader;
             File distances = new File("/Users/lohithseeram/Downloads/USA-road-d.NY.gr");
             File time = new File("/Users/lohithseeram/Downloads/USA-road-t.NY.gr");
